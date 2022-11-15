@@ -16,15 +16,23 @@ function hash(data, callback) {
     result.push(md5.digest('hex'));
     
     counter++;
-    process.nextTick(func);
+    /* 
+        -process.nextTick
+        -Timers (timeOut, setInterval)
+        -process.nextTick
+        -callBacks - setInmmediate
+        -process.nextTick
+
+    */
+    setTimeout(func);
   };
   
-  setTimeout(()=>{func()},100);
+  func();
 }
 
 hash(["test", "another test", ""], console.log);
 setTimeout(() => {
-  setTimeout(() => console.log("This should be printed before the hashes"));
+    setTimeout(() => console.log("This should be printed before the hashes"));
 });
 /* should print
 ['098f6bcd4621d373cade4e832627b4f6', 
